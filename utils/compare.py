@@ -398,6 +398,9 @@ def main():
 
     data = data.unstack(level=0)
 
+    if data.empty:
+        exit(0)
+
     for metric in data.columns.levels[0]:
         data = add_diff_column(metric, data, absolute_diff=config.absolute_diff)
 
