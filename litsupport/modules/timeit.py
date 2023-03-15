@@ -68,7 +68,7 @@ def _mutateScript(context, script):
     return testplan.mutateScript(context, script, _mutateCommandLine)
 
 
-def _collectTime(context, timefiles, metric_name='exec_time'):
+def _collectTime(context, timefiles, metric_name):
     time = 0.0
     for timefile in timefiles:
         filecontent = context.read_result_file(context, timefile)
@@ -82,7 +82,8 @@ def mutatePlan(context, plan):
     context.timefiles = []
     plan.runscript = _mutateScript(context, plan.runscript)
     plan.metric_collectors.append(
-        lambda context: _collectTime(context, context.timefiles)
+        lambda context: _collectTime(
+            context, context.timefiles, "exec_time_host" if context.config.user_mode_emulation else "exec_time")
     )
 
 
@@ -94,7 +95,7 @@ def getUserTime(filename):
 
 
 def getUserTimeFromContents(contents):
-    from_bytes = lambda s: s.decode("utf-8") if type(s) == bytes else s
+    def from_bytes(s): return s.decode("utf-8") if type(s) == bytes else s
     lines = [from_bytes(l) for l in contents.splitlines()]
     line = [line for line in lines if line.startswith('user')]
     assert len(line) == 1
