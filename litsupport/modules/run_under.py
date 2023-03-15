@@ -35,10 +35,14 @@ def getUserTimeFromContents(contents):
     def from_bytes(s): return s.decode("utf-8") if type(s) == bytes else s
     lines = [from_bytes(l) for l in contents.splitlines()]
     line = [line for line in lines if line.startswith('insns')]
-    assert len(line) == 1
+    #assert len(line) == 1
+    total = 0
+    for str in line:
+        m = re.match(r'insns:\s+([0-9]+)', str)
+        if m is not None:
+            total += float(m.group(1))
 
-    m = re.match(r'insns:\s+([0-9]+)', line[0])
-    return float(m.group(1)) / 1_000_000_000  # 1G Hz
+    return total / 1_000_000_000  # 1G Hz
 
 
 def _collectTime(context, instfiles, metric_name='exec_time'):
