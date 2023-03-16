@@ -1,7 +1,7 @@
 include(FetchContent)
 FetchContent_Declare(silesia_corpus
-  URL https://sun.aei.polsl.pl//~sdeor/corpus/silesia.zip
-  DOWNLOAD_EXTRACT_TIMESTAMP FALSE
+  URL https://sun.aei.polsl.pl/~sdeor/corpus/silesia.zip
+  #DOWNLOAD_EXTRACT_TIMESTAMP FALSE
   URL_HASH SHA256=0626E25F45C0FFB5DC801F13B7C82A3B75743BA07E3A71835A41E3D9F63C77AF
 )
 FetchContent_MakeAvailable(silesia_corpus)
