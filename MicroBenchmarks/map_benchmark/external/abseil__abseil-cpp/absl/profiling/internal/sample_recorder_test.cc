@@ -112,7 +112,7 @@ TEST(SampleRecorderTest, MultiThreaded) {
 
   for (int i = 0; i < 10; ++i) {
     pool.Schedule([&sampler, &stop, i]() {
-      std::random_device rd;
+      std::mt19937_64 rd;
       std::mt19937 gen(rd());
 
       std::vector<Info*> infoz;

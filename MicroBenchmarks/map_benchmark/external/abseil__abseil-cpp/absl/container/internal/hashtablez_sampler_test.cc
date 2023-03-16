@@ -356,7 +356,7 @@ TEST(HashtablezSamplerTest, MultiThreaded) {
     const int64_t sampling_stride = 11 + i % 3;
     const size_t elt_size = 10 + i % 2;
     pool.Schedule([&sampler, &stop, sampling_stride, elt_size]() {
-      std::random_device rd;
+      std::mt19937_64 rd;
       std::mt19937 gen(rd());
 
       std::vector<HashtablezInfo*> infoz;

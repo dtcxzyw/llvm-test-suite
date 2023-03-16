@@ -1034,7 +1034,7 @@ void test_random_integer_parse_base(bool (*parse_func)(absl::string_view,
                                                        IntType* value,
                                                        int base)) {
   using RandomEngine = std::minstd_rand0;
-  std::random_device rd;
+  std::mt19937_64 rd;
   RandomEngine rng(rd());
   std::uniform_int_distribution<IntType> random_int(
       std::numeric_limits<IntType>::min());
@@ -1088,7 +1088,7 @@ TEST(stringtest, safe_strtou128_random) {
   using IntType = absl::uint128;
   constexpr auto parse_func = &absl::numbers_internal::safe_strtou128_base;
 
-  std::random_device rd;
+  std::mt19937_64 rd;
   RandomEngine rng(rd());
   std::uniform_int_distribution<uint64_t> random_uint64(
       std::numeric_limits<uint64_t>::min());
@@ -1128,7 +1128,7 @@ TEST(stringtest, safe_strto128_random) {
   using IntType = absl::int128;
   constexpr auto parse_func = &absl::numbers_internal::safe_strto128_base;
 
-  std::random_device rd;
+  std::mt19937_64 rd;
   RandomEngine rng(rd());
   std::uniform_int_distribution<int64_t> random_int64(
       std::numeric_limits<int64_t>::min());

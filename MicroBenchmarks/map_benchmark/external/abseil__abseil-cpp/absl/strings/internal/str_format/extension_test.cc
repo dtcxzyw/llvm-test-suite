@@ -44,7 +44,7 @@ class UserDefinedType {
 namespace {
 
 std::string MakeRandomString(size_t len) {
-  std::random_device rd;
+  std::mt19937_64 rd;
   std::mt19937 gen(rd());
   std::uniform_int_distribution<> dis('a', 'z');
   std::string s(len, '0');

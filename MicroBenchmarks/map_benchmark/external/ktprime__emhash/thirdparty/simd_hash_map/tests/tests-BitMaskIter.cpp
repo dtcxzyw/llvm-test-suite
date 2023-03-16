@@ -7,7 +7,7 @@
 using bit_iter = BitMaskIter64;
 
 class RandomNumGen {
-  std::random_device rd;
+  std::mt19937_64 rd;
   std::mt19937_64 eng;
   std::uniform_int_distribution<uint64_t> dist;
 

@@ -105,7 +105,7 @@ using pset = phmap::parallel_flat_hash_set<T,
 int main()
 {
     auto shuffle = [](std::vector<uint64_t> &order) { 
-        std::random_device rd;
+        std::mt19937_64 rd;
         std::mt19937 g(rd());
         std::shuffle(order.begin(), order.end(), g); 
     };

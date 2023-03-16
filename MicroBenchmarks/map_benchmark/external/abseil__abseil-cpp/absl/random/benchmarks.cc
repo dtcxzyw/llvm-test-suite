@@ -43,7 +43,7 @@
 
 namespace {
 
-// Seed data to avoid reading random_device() for benchmarks.
+// Seed data to avoid reading mt19937_64() for benchmarks.
 uint32_t kSeedData[] = {
     0x1B510052, 0x9A532915, 0xD60F573F, 0xBC9BC6E4, 0x2B60A476, 0x81E67400,
     0x08BA6FB5, 0x571BE91F, 0xF296EC6B, 0x2A0DD915, 0xB6636521, 0xE7B9F9B6,

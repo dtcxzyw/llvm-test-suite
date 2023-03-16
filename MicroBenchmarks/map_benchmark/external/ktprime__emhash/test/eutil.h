@@ -155,7 +155,7 @@ static inline uint32_t ilog(uint32_t x, uint32_t n = 2)
 }
 
 static inline uint64_t randomseed() {
-    std::random_device rd;
+    std::mt19937_64 rd;
     std::mt19937 g(rd());
     return g();
 }
@@ -450,7 +450,7 @@ struct Int64Hasher
 template<class RandomIt>
 void shuffle(RandomIt first, RandomIt last)
 {
-    std::random_device rd;
+    std::mt19937_64 rd;
     std::mt19937 g(rd());
     typedef typename std::iterator_traits<RandomIt>::difference_type diff_t;
     typedef std::uniform_int_distribution<diff_t> distr_t;

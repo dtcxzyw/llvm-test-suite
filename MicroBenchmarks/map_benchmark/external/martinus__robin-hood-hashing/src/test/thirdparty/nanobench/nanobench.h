@@ -482,7 +482,7 @@ public:
     /**
      * As a safety precausion, we don't allow copying. Copying a PRNG would mean you would have two random generators that produce the
      * same sequence, which is generally not what one wants. Instead create a new rng with the default constructor Rng(), which is
-     * automatically seeded from `std::random_device`. If you really need a copy, use copy().
+     * automatically seeded from `std::mt19937_64`. If you really need a copy, use copy().
      */
     Rng(Rng const&) = delete;
 
@@ -500,7 +500,7 @@ public:
      * @brief Creates a new Random generator with random seed.
      *
      * Instead of a default seed (as the random generators from the STD), this properly seeds the random generator from
-     * `std::random_device`. It guarantees correct seeding. Note that seeding can be relatively slow, depending on the source of
+     * `std::mt19937_64`. It guarantees correct seeding. Note that seeding can be relatively slow, depending on the source of
      * randomness used. So it is best to create a Rng once and use it for all your randomness purposes.
      */
     Rng();
@@ -1242,7 +1242,7 @@ void doNotOptimizeAway(T const& val) {
 #    include <iomanip>   // setw, setprecision
 #    include <iostream>  // cout
 #    include <numeric>   // accumulate
-#    include <random>    // random_device
+#    include <random>    // mt19937_64
 #    include <sstream>   // to_s in Number
 #    include <stdexcept> // throw for rendering templates
 #    include <tuple>     // std::tie
@@ -2425,7 +2425,7 @@ public:
             // marsaglia's xorshift: mov, sal/shr, xor. Times 3.
             // This has the nice property that the compiler doesn't seem to be able to optimize multiple calls any further.
             // see https://godbolt.org/z/49RVQ5
-            uint64_t const numIters = 100000U + (std::random_device{}() & 3);
+            uint64_t const numIters = 100000U + (std::mt19937_64{}() & 3);
             uint64_t n = numIters;
             uint32_t x = 1234567;
             auto fn = [&]() {
@@ -3215,7 +3215,7 @@ std::vector<BigO> Bench::complexityBigO() const {
 Rng::Rng()
     : mX(0)
     , mY(0) {
-    std::random_device rd;
+    std::mt19937_64 rd;
     std::uniform_int_distribution<uint64_t> dist;
     do {
         mX = dist(rd);

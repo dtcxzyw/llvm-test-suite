@@ -11,7 +11,7 @@
 #include <utility>
 
 uint64_t randomseed() {
-    std::random_device rd;
+    std::mt19937_64 rd;
     return std::uniform_int_distribution<uint64_t>{}(rd);
 }
 // this is probably the fastest high quality 64bit random number generator that exists.

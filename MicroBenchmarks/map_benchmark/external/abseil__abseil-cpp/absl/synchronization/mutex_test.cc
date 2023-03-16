@@ -933,7 +933,7 @@ TEST(Mutex, FunctorCondition) {
 
 static void ReaderForReaderOnCondVar(absl::Mutex *mu, absl::CondVar *cv,
                                      int *running) {
-  std::random_device dev;
+  std::mt19937_64 dev;
   std::mt19937 gen(dev());
   std::uniform_int_distribution<int> random_millis(0, 15);
   mu->ReaderLock();

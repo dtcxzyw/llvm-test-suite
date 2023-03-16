@@ -86,7 +86,7 @@ std::string get_cpu_model()
 
 struct rng
 {
-    std::random_device random_device;
+    std::mt19937_64 mt19937_64;
     std::default_random_engine random_engine;
     std::uniform_int_distribution<uint64_t> random_dist;
 

@@ -187,7 +187,7 @@ class sfc64 {
             }
 
         void seed() {
-            *this = sfc64{std::random_device{}()};
+            *this = sfc64{std::mt19937_64{}()};
         }
 
         uint64_t operator()() noexcept {

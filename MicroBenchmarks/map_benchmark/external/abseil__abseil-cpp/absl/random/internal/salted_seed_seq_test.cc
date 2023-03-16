@@ -109,7 +109,7 @@ TEST(SaltedSeedSeq, SeedMaterialIsSalted) {
   const size_t kNumBlocks = 16;
 
   uint32_t seed_material[kNumBlocks];
-  std::random_device urandom{"/dev/urandom"};
+  std::mt19937_64 urandom{"/dev/urandom"};
   for (uint32_t& seed : seed_material) {
     seed = urandom();
   }

@@ -1106,7 +1106,7 @@ namespace fph {
         class RandomGenerator<T, typename std::enable_if<std::is_integral<T>::value>::type> {
         public:
 
-            RandomGenerator(): init_seed(std::random_device{}()), random_engine(init_seed) {}
+            RandomGenerator(): init_seed(std::mt19937_64{}()), random_engine(init_seed) {}
 
             RandomGenerator(size_t seed): init_seed(seed), random_engine(seed) {}
 
@@ -1170,7 +1170,7 @@ namespace fph {
         class RandomGenerator<std::string> {
         public:
 
-            RandomGenerator(): init_seed(std::random_device{}()), random_engine(init_seed) {}
+            RandomGenerator(): init_seed(std::mt19937_64{}()), random_engine(init_seed) {}
             RandomGenerator(const RandomGenerator& other): init_seed(other.init_seed),
                                                            random_engine(other.random_engine) {}
 

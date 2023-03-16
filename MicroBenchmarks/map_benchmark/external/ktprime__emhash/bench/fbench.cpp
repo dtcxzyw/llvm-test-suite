@@ -30,7 +30,7 @@
 #include "hash_table6.hpp"
 #include "hash_table5.hpp"
 
-static std::random_device rd;
+static std::mt19937_64 rd;
 static std::mt19937_64 rnd(rd());
 
 /*

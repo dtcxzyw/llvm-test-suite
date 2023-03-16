@@ -16,7 +16,7 @@ class RandomIntGenerator : public Catch::Generators::IGenerator<int> {
 public:
 
     RandomIntGenerator(int low, int high):
-        m_rand(std::random_device{}()),
+        m_rand(std::mt19937_64{}()),
         m_dist(low, high)
     {
         static_cast<void>(next());

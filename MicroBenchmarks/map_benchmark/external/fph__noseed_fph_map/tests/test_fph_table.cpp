@@ -153,7 +153,7 @@ struct TestKeySeedHash {
 
 class KeyClassRNG {
 public:
-    KeyClassRNG(): init_seed(std::random_device{}()), string_gen(init_seed) {};
+    KeyClassRNG(): init_seed(std::mt19937_64{}()), string_gen(init_seed) {};
     KeyClassRNG(size_t seed):  init_seed(seed), string_gen(seed) {}
 
     TestKeyClass operator()() {
@@ -173,7 +173,7 @@ protected:
 
 class ValueClassRNG {
 public:
-    ValueClassRNG(): init_seed(std::random_device{}()), string_gen(init_seed) {};
+    ValueClassRNG(): init_seed(std::mt19937_64{}()), string_gen(init_seed) {};
     ValueClassRNG(size_t seed): init_seed(seed), string_gen(seed) {}
 
     TestValueClass operator()() {
@@ -872,8 +872,8 @@ bool TestInitList(size_t seed, ValueRandomGen value_gen) {
 template<class ValueRandomGen, class Table, class BenchTable>
 bool TestCorrectness(size_t max_elem_num, size_t test_time) {
     std::vector<size_t> test_elem_num_array = {0, max_elem_num};
-    static std::random_device random_device;
-    auto test_seed = random_device();
+    static std::mt19937_64 mt19937_64;
+    auto test_seed = mt19937_64();
 //    size_t test_seed = 3499889938ULL;
 //    LogHelper::log(Debug, "test_seed: %lu", test_seed);
     std::mt19937_64 random_engine(test_seed);
@@ -1109,7 +1109,7 @@ bool TestCorrectness(size_t max_elem_num, size_t test_time) {
 template<class T1, class T2, class T1RNG = fph::dynamic::RandomGenerator<T1>, class T2RNG = fph::dynamic::RandomGenerator<T2>>
 class RandomPairGen {
 public:
-    RandomPairGen(): init_seed(std::random_device{}()), random_engine(init_seed), t1_gen(init_seed), t2_gen(init_seed) {}
+    RandomPairGen(): init_seed(std::mt19937_64{}()), random_engine(init_seed), t1_gen(init_seed), t2_gen(init_seed) {}
 
     std::pair<T1,T2> operator()() {
         return {t1_gen(), t2_gen()};
@@ -1561,7 +1561,7 @@ void TestFPH() {
     constexpr double TEST_CORR_MAX_LOAD_FACTOR = 0.7;
 
 
-    std::random_device random_device;
+    std::mt19937_64 mt19937_64;
     std::uniform_int_distribution<size_t> random_gen;
 
 
@@ -1726,7 +1726,7 @@ void TestMapPerformance() {
 
     using StdHashTable = std::unordered_map<KeyType, ValueType, HashMethod>;
 
-    size_t performance_seed = std::random_device{}();
+    size_t performance_seed = std::mt19937_64{}();
 
     TestTablePerformance<DYNAMIC_FPH_TABLE, RandomGenerator, TestDyFphMap, PairType>(KEY_NUM, CONSTRUCT_TIME, LOOKUP_TIME,
                                                                                                 performance_seed, c, TEST_MAX_LOAD_FACTOR);

@@ -286,7 +286,7 @@ void StringViewMapBenchmark(benchmark::State& state) {
                          "found", "a",      "large",    "mushroom", "and",
                          "a",     "couple", "crickets", "eating",   "pie"};
   // Create some keys that consist of words in random order.
-  std::random_device r;
+  std::mt19937_64 r;
   std::seed_seq seed({r(), r(), r(), r(), r(), r(), r(), r()});
   std::mt19937 rng(seed);
   std::vector<std::string> keys(table_size);

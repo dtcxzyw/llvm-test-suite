@@ -182,7 +182,7 @@ struct TestKeySeedHash {
 // If using a custom class, a random generator of the key should be provided.
 class KeyClassRNG {
 public:
-    KeyClassRNG(): string_gen(std::random_device{}()) {};
+    KeyClassRNG(): string_gen(std::mt19937_64{}()) {};
 
     TestKeyClass operator()() {
         return TestKeyClass(string_gen());

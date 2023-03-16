@@ -27,7 +27,7 @@ int main() {
     memset(underlying_arr, 0, sizeof(underlying_arr));
     memset(bench_table, 0, sizeof(bench_table));
     fph::meta::detail::BitArrayView<UnderlyingEntry, ITEM_BIT_SIZE> bit_array(underlying_arr);
-    uint64_t seed = std::random_device{}();
+    uint64_t seed = std::mt19937_64{}();
     uint64_t original_seed = FastRand(seed);
     seed = original_seed;
     uint64_t temp_sum = 0;

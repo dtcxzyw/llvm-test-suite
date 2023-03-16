@@ -7676,7 +7676,7 @@ namespace Catch {
 
             bootstrap_analysis analyse_samples(double confidence_level, int n_resamples, std::vector<double>::iterator first, std::vector<double>::iterator last) {
                 CATCH_INTERNAL_SUPPRESS_GLOBALS_WARNINGS
-                static std::random_device entropy;
+                static std::mt19937_64 entropy;
                 CATCH_INTERNAL_UNSUPPRESS_GLOBALS_WARNINGS
 
                 auto n = static_cast<int>(last - first); // seriously, one can't use integral types without hell in C++

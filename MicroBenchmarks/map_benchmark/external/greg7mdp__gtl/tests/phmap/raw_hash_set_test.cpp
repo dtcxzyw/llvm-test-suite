@@ -1158,7 +1158,7 @@ ProbeStats CollectProbeStatsOnLinearlyTransformedKeys(
     const std::vector<int64_t>& keys, size_t num_iters) {
   ProbeStats stats;
 
-  std::random_device rd;
+  std::mt19937_64 rd;
   std::mt19937 rng(rd());
   auto linear_transform = [](size_t x, size_t y) { return x * 17 + y * 13; };
   std::uniform_int_distribution<size_t> dist(0, keys.size()-1);

@@ -965,7 +965,7 @@ TEST(MutatingTest, RotateCopy) {
 
 TEST(MutatingTest, Shuffle) {
   std::vector<int> actual = {1, 2, 3, 4, 5};
-  absl::c_shuffle(actual, std::random_device());
+  absl::c_shuffle(actual, std::mt19937_64());
   EXPECT_THAT(actual, UnorderedElementsAre(1, 2, 3, 4, 5));
 }
 

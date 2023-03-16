@@ -26,7 +26,7 @@ namespace {
 std::array<unsigned char, 256> MakeShuffledBytes() {
   std::array<unsigned char, 256> bytes;
   for (size_t i = 0; i < 256; ++i) bytes[i] = static_cast<unsigned char>(i);
-  std::random_device rd;
+  std::mt19937_64 rd;
   std::seed_seq seed({rd(), rd(), rd(), rd(), rd(), rd(), rd(), rd()});
   std::mt19937 g(seed);
   std::shuffle(bytes.begin(), bytes.end(), g);

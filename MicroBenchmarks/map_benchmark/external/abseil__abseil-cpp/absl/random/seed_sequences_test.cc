@@ -83,7 +83,7 @@ TEST(CreateSeedSeqFrom, CompatibleWithInsecureBitGen) {
 
 TEST(CreateSeedSeqFrom, CompatibleWithRawURBG) {
   // Construct a URBG instance.
-  std::random_device urandom;
+  std::mt19937_64 urandom;
 
   // Construct a Seed Sequence from its variates, using 64b of seed-material.
   auto seq_from_rng = absl::CreateSeedSeqFrom(&urandom);

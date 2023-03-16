@@ -103,7 +103,7 @@ using std::max;
 KHASH_MAP_INIT_INT(32, uint32_t)
 #endif
 
-    static std::random_device rd;
+    static std::mt19937_64 rd;
     static std::mt19937_64 rnd(rd());
 
 #if __x86_64__ || _M_X64 || _M_IX86 || __i386__
@@ -258,7 +258,7 @@ int main(int argc, char** argv)
   std::ios_base::sync_with_stdio(false);
   const size_t N = argc >  1 ? stoi(argv[1]) : 12345678;
 
-  std::random_device urand;
+  std::mt19937_64 urand;
   std::minstd_rand mr(urand());
   std::uniform_int_distribution<uint32_t> u32distr(1u<<30);
   double initial_memory;

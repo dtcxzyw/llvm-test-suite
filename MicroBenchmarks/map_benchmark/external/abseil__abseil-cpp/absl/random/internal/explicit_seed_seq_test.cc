@@ -85,7 +85,7 @@ TEST(ExplicitSeeqSeq, SeedMaterialIsForwardedIdentically) {
   const size_t kNumBlocks = 128;
 
   uint32_t seed_material[kNumBlocks];
-  std::random_device urandom{"/dev/urandom"};
+  std::mt19937_64 urandom{"/dev/urandom"};
   for (uint32_t& seed : seed_material) {
     seed = urandom();
   }
@@ -130,7 +130,7 @@ TEST(ExplicitSeedSeq, CopyAndMoveConstructors) {
   using testing::Pointwise;
 
   uint32_t entropy[4];
-  std::random_device urandom("/dev/urandom");
+  std::mt19937_64 urandom("/dev/urandom");
   for (uint32_t& entry : entropy) {
     entry = urandom();
   }

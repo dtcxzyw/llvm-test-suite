@@ -1160,7 +1160,7 @@ static void high_load()
     size_t maxSize = 1U << 28;
     size_t numReps = 100;
 
-    std::random_device rd;
+    std::mt19937_64 rd;
     auto dis = std::uniform_int_distribution<uint32_t>{0, (1U << 31) - 1};
 
     for (size_t rep = 0; rep < numReps; ++rep) {

@@ -347,7 +347,7 @@ void RunBenchmarks(const std::vector<BenchmarkInstance>& benchmarks,
            "Unexpected number of repetition indexes.");
 
     if (FLAGS_benchmark_enable_random_interleaving) {
-      std::random_device rd;
+      std::mt19937_64 rd;
       std::mt19937 g(rd());
       std::shuffle(repetition_indices.begin(), repetition_indices.end(), g);
     }

@@ -1469,7 +1469,7 @@ TEST(Duration, ToDoubleSecondsCheckEdgeCases) {
 }
 
 TEST(Duration, ToDoubleSecondsCheckRandom) {
-  std::random_device rd;
+  std::mt19937_64 rd;
   std::seed_seq seed({rd(), rd(), rd(), rd(), rd(), rd(), rd(), rd()});
   std::mt19937_64 gen(seed);
   // We want doubles distributed from 1/8ns up to 2^63, where

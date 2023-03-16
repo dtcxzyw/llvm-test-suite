@@ -38,7 +38,7 @@ TYPED_TEST(FastUniformBitsTypedTest, BasicTest) {
   EXPECT_EQ((Limits::max)(), (FastBits::max)());
 
   constexpr int kIters = 10000;
-  std::random_device rd;
+  std::mt19937_64 rd;
   std::mt19937 gen(rd());
   FastBits fast;
   for (int i = 0; i < kIters; i++) {

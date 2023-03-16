@@ -27,7 +27,7 @@ namespace {
 constexpr size_t kSampleSize = 1000000;
 
 std::mt19937 MakeRandomEngine() {
-  std::random_device r;
+  std::mt19937_64 r;
   std::seed_seq seed({r(), r(), r(), r(), r(), r(), r(), r()});
   return std::mt19937(seed);
 }

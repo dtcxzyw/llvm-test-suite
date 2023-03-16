@@ -24,7 +24,7 @@ namespace {
 
 class RandomDeviceSeedSeq {
  public:
-  using result_type = typename std::random_device::result_type;
+  using result_type = typename std::mt19937_64::result_type;
 
   template <class Iterator>
   void generate(Iterator start, Iterator end) {
@@ -35,7 +35,7 @@ class RandomDeviceSeedSeq {
   }
 
  private:
-  std::random_device gen_;
+  std::mt19937_64 gen_;
 };
 
 }  // namespace

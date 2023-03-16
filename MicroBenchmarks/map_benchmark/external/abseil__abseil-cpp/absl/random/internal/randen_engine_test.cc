@@ -59,7 +59,7 @@ TYPED_TEST(RandenEngineTypedTest, VerifyReseedChangesAllValues) {
   std::generate(std::begin(a), std::end(a), std::ref(engine));
 
   {
-    std::random_device rd;
+    std::mt19937_64 rd;
     std::seed_seq seq2{rd(), rd(), rd()};
     engine.seed(seq2);
   }
