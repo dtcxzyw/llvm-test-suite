@@ -6,7 +6,7 @@ FetchContent_Declare(silesia_corpus
 )
 FetchContent_MakeAvailable(silesia_corpus)
 
-set(CORPUS_FILE ${CMAKE_CURRENT_BINARY_DIR}/silesia.tar)
+set(CORPUS_FILE ${CMAKE_CURRENT_LIST_DIR}/silesia.tar)
 add_custom_command(OUTPUT ${CORPUS_FILE}
 COMMAND tar -cf ${CORPUS_FILE} ${silesia_corpus_SOURCE_DIR}
 )
@@ -43,7 +43,8 @@ foreach(SRC ${LZBENCH_SRC_ALL})
   endif()
 endforeach()
 
-set(RUN_OPTIONS ${CORPUS_FILE})
+set(NO_REFERENCE_OUTPUT true)
+set(RUN_OPTIONS ./silesia.tar)
 llvm_multisource(lzbench ${LZBENCH_SRC})
 target_include_directories(lzbench PRIVATE 
 ${lzbench_SOURCE_DIR} 
@@ -67,3 +68,4 @@ target_compile_definitions(lzbench PRIVATE BENCH_REMOVE_LZSSE BENCH_REMOVE_CSC B
 target_compile_definitions(lzbench PRIVATE MS_x64_CALL=0)
 target_link_options(lzbench PRIVATE -Wno-stringop-overflow -Wno-lto-type-mismatch)
 add_dependencies(lzbench silesia_corpus_tar)
+llvm_test_data(lzbench ./silesia.tar)
