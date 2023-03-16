@@ -37,6 +37,11 @@ foreach(MAP_DIR ${INC_MAPS})
 
         llvm_test_run()
         llvm_test_executable(${EXECUTABLE_NAME} ${SRC_APP} ${SRC_BENCHMARKS} ${SRC_MAP_DIR} ${SRC_HASH_DIR})
+        if (${CMAKE_C_FLAGS} MATCHES ".*-flto.*" AND
+            ${CMAKE_CXX_FLAGS} MATCHES ".*-flto.*")
+            target_link_options(${EXECUTABLE_NAME} -mllvm -lto-stats-file=${CMAKE_CURRENT_BINARY_DIR}/${EXECUTABLE_NAME}.stats)
+        endif()
+        
         target_include_directories(${EXECUTABLE_NAME} PRIVATE "src/app" "external" ${MAP_DIR} ${HASH_DIR} ${FOLLY_DIR})
         target_link_libraries(${EXECUTABLE_NAME} benchmark)
 
