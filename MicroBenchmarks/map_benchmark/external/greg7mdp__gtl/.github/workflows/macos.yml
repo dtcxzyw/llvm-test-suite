@@ -1,0 +1,40 @@
+name: macOS
+
+on:
+  push:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-11, macos-latest]
+        build_type: [Debug, Release]
+        standard: [20]
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.0.0
+
+    - name: Create Environment
+      run: |
+        cmake -E make_directory ${{runner.workspace}}/build
+
+    - name: Configure
+      working-directory: ${{runner.workspace}}/build
+      run: |
+        cmake -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON -DCMAKE_CXX_STANDARD=${{matrix.standard}} -DCMAKE_BUILD_TYPE=${{matrix.build_type}} $GITHUB_WORKSPACE
+
+    - name: Build
+      working-directory: ${{runner.workspace}}/build
+      run: |
+        cpus=`sysctl -n hw.logicalcpu`
+        cmake --build . --config ${{matrix.build_type}} --parallel $cpus
+
+    - name: Test
+      working-directory: ${{runner.workspace}}/build
+      env:
+        CTEST_OUTPUT_ON_FAILURE: True
+      run: |
+        ctest -C ${{matrix.build_type}}

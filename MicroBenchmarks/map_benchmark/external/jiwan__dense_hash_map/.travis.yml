@@ -1,0 +1,61 @@
+language: cpp
+dist: bionic
+os: linux
+addons:
+    apt:
+        sources:
+            - sourceline: "ppa:ubuntu-toolchain-r/test"
+            - llvm-toolchain-bionic-9
+        packages:
+            - g++-9
+            - clang-9
+
+jobs:
+    - name: GCC Debug
+      env:
+          - COMPILER="g++-9"
+          - EXTRA_CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Debug"
+    - name: GCC Debug ASAN
+      env:
+          - COMPILER="g++-9"
+          - EXTRA_CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Debug -DENABLE_ASAN=ON"
+    - name: GCC Debug UBSAN
+      env:
+          - COMPILER="g++-9"
+          - EXTRA_CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Debug -DENABLE_UBSAN=ON"
+    - name: GCC Debug Strict Type Punning 
+      env:
+          - COMPILER="g++-9"
+          - EXTRA_CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Debug -DENABLE_UBSAN=ON -DCMAKE_CXX_FLAGS=\"-DJG_STRICT_TYPE_PUNNING\""
+    - name: GCC Release 
+      env:
+          - COMPILER="g++-9"
+          - EXTRA_CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Release"
+    - name: clang Debug 
+      env:
+          - COMPILER="clang++-9"
+          - EXTRA_CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Debug"
+    - name: clang Release 
+      env:
+          - COMPILER="clang++-9"
+          - EXTRA_CMAKE_FLAGS="-DCMAKE_BUILD_TYPE=Release"
+
+install:    
+  - DEPS_DIR="${TRAVIS_BUILD_DIR}/deps"
+  - mkdir ${DEPS_DIR}
+  - pushd ${DEPS_DIR}
+  - travis_retry wget --no-check-certificate https://github.com/Kitware/CMake/releases/download/v3.16.3/cmake-3.16.3-Linux-x86_64.tar.gz 
+  - tar -xvf cmake-3.16.3-Linux-x86_64.tar.gz > /dev/null
+  - mv cmake-3.16.3-Linux-x86_64 cmake-install
+  - PATH=${DEPS_DIR}/cmake-install:${DEPS_DIR}/cmake-install/bin:$PATH
+  - popd
+
+before_script:
+    - mkdir build
+    - cd build
+    - export CXX="${COMPILER}"
+    - cmake "${EXTRA_CMAKE_FLAGS}" .. 
+
+script:
+    - make 
+    - ./tests/dense_hash_map_tests

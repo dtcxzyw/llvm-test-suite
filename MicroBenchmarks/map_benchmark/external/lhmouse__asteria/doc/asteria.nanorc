@@ -1,0 +1,41 @@
+## Here is an example for Asteria.
+
+syntax asteria "\.ast$"
+comment "//"
+
+# Declarations
+color green "\<(var|const|ref|func|each)\>"
+
+# Statements
+color brightyellow "\<(if|else|switch|case|default|do|while|for|try|catch)\>"
+color brightmagenta "\<(break|continue|throw|return)\>"
+color brightred "\<(assert|defer)\>"
+
+# Values
+color yellow "\<(null|true|false|nan|NaN|infinity|Infinity|this)\>"
+color yellow "\<__(file|line|func|varg|this|backtrace)\>"
+
+# Operators
+color cyan "[].+*/%=&|!^~?:,;(){}<>$[-]"
+color brightgreen "\<(unset|(count|type)of|and|or|not|import)\>"
+color brightgreen "\<__(sqrt|is(nan|inf)|abs|sign|i?(round|floor|ceil|trunc)|fma|vcall|(lz|tz|pop)cnt|(add|sub|mul)[ms])\>"
+
+# Modifiers
+color brightcyan "\<(extern)\>"
+
+# Literals
+color yellow "'[^']*?'" ""(\\.|[^\\"])*?""
+icolor yellow "\<0b([01]`?)+(\.([01]`?)+)?([ep][-+]?([0-9]`?)+)?\>"
+icolor yellow "\<([0-9]`?)+(\.([0-9]`?)+)?([ep][-+]?([0-9]`?)+)?\>"
+icolor yellow "\<0x([0-9a-f]`?)+(\.([0-9a-f]`?)+)?(p[-+]?([0-9]`?)+)?\>"
+
+# Comments
+color brightblue "//.*"
+color brightblue start="/\*" end="\*/"
+color brightblue "^#!.*"
+
+# Reminders
+color red,yellow "\<(FIXME|TODO|XXX)\>"
+
+# Trailing whitespace
+color ,green "[[:space:]]+$"
