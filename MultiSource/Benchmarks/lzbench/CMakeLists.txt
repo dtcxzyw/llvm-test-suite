@@ -43,6 +43,10 @@ foreach(SRC ${LZBENCH_SRC_ALL})
   endif()
 endforeach()
 
+set(CMAKE_THREAD_PREFER_PTHREAD TRUE)
+set(THREADS_PREFER_PTHREAD_FLAG TRUE)
+find_package(Threads REQUIRED)
+
 set(NO_REFERENCE_OUTPUT true)
 set(RUN_OPTIONS ./silesia.tar)
 llvm_multisource(lzbench ${LZBENCH_SRC})
@@ -66,6 +70,7 @@ target_compile_options(lzbench PRIVATE -w -fomit-frame-pointer -fstrict-aliasing
 target_compile_definitions(lzbench PRIVATE HAVE_CONFIG_H FL2_SINGLETHREAD)
 target_compile_definitions(lzbench PRIVATE BENCH_REMOVE_LZSSE BENCH_REMOVE_CSC BENCH_REMOVE_TORNADO)
 target_compile_definitions(lzbench PRIVATE MS_x64_CALL=0)
+target_link_libraries(lzbench Threads::Threads)
 target_link_options(lzbench PRIVATE -Wno-stringop-overflow -Wno-lto-type-mismatch)
 add_dependencies(lzbench silesia_corpus_tar)
 llvm_test_data(lzbench ./silesia.tar)
