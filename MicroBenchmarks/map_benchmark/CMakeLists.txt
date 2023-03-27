@@ -29,6 +29,11 @@ foreach(MAP_DIR ${INC_MAPS})
     foreach(HASH_DIR ${INC_HASHES})
         # executable name: mapname_hashname
         get_filename_component(HASH_NAME ${HASH_DIR} NAME_WE)
+
+        if((CMAKE_SIZEOF_VOID_P EQUAL 4) AND (${HASH_NAME} STREQUAL "mumx_hash"))
+            continue()
+        endif()
+
         set(EXECUTABLE_NAME "map_bench_${MAP_NAME}__${HASH_NAME}")
 
         # collect .cpp files in current hash and map directory
