@@ -308,9 +308,7 @@ int Results::NumThreads() const {
   return num;
 }
 
-double Results::NumIterations() const {
-  return GetAs<double>("iterations");
-}
+double Results::NumIterations() const { return GetAs<double>("iterations"); }
 
 double Results::GetTime(BenchmarkTime which) const {
   CHECK(which == kCpuTime || which == kRealTime);
@@ -456,16 +454,16 @@ static char ToHex(int ch) {
 }
 
 static char RandomHexChar() {
-  static std::mt19937 rd{std::mt19937_64{}()};
+  static std::mt19937 rd{
+      static_cast<std::mt19937::result_type>(std::mt19937_64{}())};
   static std::uniform_int_distribution<int> mrand{0, 15};
   return ToHex(mrand(rd));
 }
 
 static std::string GetRandomFileName() {
   std::string model = "test.%%%%%%";
-  for (auto & ch :  model) {
-    if (ch == '%')
-      ch = RandomHexChar();
+  for (auto& ch : model) {
+    if (ch == '%') ch = RandomHexChar();
   }
   return model;
 }
@@ -482,8 +480,7 @@ static std::string GetTempFileName() {
   int retries = 3;
   while (--retries) {
     std::string name = GetRandomFileName();
-    if (!FileExists(name))
-      return name;
+    if (!FileExists(name)) return name;
   }
   std::cerr << "Failed to create unique temporary file name" << std::endl;
   std::abort();

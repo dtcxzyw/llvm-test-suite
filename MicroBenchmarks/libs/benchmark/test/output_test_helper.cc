@@ -460,7 +460,8 @@ static char ToHex(int ch) {
 }
 
 static char RandomHexChar() {
-  static std::mt19937 rd{std::mt19937_64{}()};
+  static std::mt19937 rd{
+      static_cast<std::mt19937::result_type>(std::mt19937_64{}())};
   static std::uniform_int_distribution<int> mrand{0, 15};
   return ToHex(mrand(rd));
 }
