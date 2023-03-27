@@ -23,6 +23,10 @@ foreach(HASH_DIR ${INC_HASHES})
     add_custom_target("${HASH_NAME}_all") # aggregate of map targets
 endforeach(HASH_DIR ${INC_HASHES})
 
+if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+    list(APPEND CXXFLAGS -Wno-c++11-narrowing)
+endif()
+
 foreach(MAP_DIR ${INC_MAPS})
     get_filename_component(MAP_NAME ${MAP_DIR} NAME_WE)
     add_custom_target("${MAP_NAME}_all") # aggregate of hash targets
